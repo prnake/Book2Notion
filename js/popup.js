@@ -52,9 +52,9 @@ function showPreview(book) {
 
 function createItem(book) {
     let options, body;
-    chrome.storage.local.get("databaseID", (data)=> {
+    chrome.storage.local.get("DatabaseID", (data)=> {
         body = {
-            "parent": { "type": "database_id", "database_id": data.databaseID },
+            "parent": { "type": "database_id", "database_id": data.DatabaseID },
             "properties": {
                 "书名": {
                     "type": "title",

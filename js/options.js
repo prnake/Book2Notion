@@ -8,7 +8,16 @@ save.addEventListener("click", () => {
     save.setAttribute("disabled", "disabled");
     var nToken = document.getElementById("nToken").value;
     var pageID = document.getElementById("pageID").value;
-    createDatabase(nToken, pageID);
+    if (pageID) {
+        createDatabase(nToken, pageID);
+    }
+    else {
+        var DatabaseID = document.getElementById("DatabaseID").value;
+        chrome.storage.local.set({ nToken: nToken, DatabaseID: DatabaseID}, ()=>{
+            checkPlaceHolder();
+            alert("保存成功!")
+        });
+    }
 })
 
 reset.addEventListener("click", () => {
@@ -100,7 +109,7 @@ function createDatabase(nToken, pageID) {
                 checkPlaceHolder();
                 alert(response.message);
             } else {
-                chrome.storage.local.set({ "databaseID": response.id });
+                chrome.storage.local.set({ "DatabaseID": response.id });
                 chrome.storage.local.set({ nToken: nToken, pageID: pageID}, ()=>{
                     checkPlaceHolder();
                     alert("创建Database并保存成功!")
